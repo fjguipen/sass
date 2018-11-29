@@ -1,0 +1,433 @@
+//Variables y clases
+
+$titlesFont: 'Dosis', sans-serif;
+$handWritingFont: 'Indie Flower', cursive;
+$grayBlack: #434343;
+$mainBlue:#303f7e;
+$mainBlueDarker: #1a2348;
+$mainBlueTrans:rgba(48, 63, 126,0.6);
+$homeImg: url("../img/fondo");
+$maxWidthModal:600px;
+$maxWidthFolio: 900px;
+
+
+
+//Imports
+@import 'presets';
+@import 'animations';
+@import 'loader';
+
+/*GENERAL STYLE*/
+body{
+    font-family: $titlesFont;
+    color: $grayBlack;
+}
+
+//Custom classes
+@mixin dflex(){
+    display: flex;
+    display:-webkit-flex;
+    
+}
+
+@mixin dflex-centered(){
+    justify-content: center;
+    align-items: center;
+}
+@mixin centeredBox($width, $maxwidth){
+    width: $width;
+    max-width: $maxwidth;
+    margin:auto;
+}
+@mixin transform($property){
+    -webkit-transform: $property;
+    -moz-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+.d-flex{
+    @include dflex();
+    flex-flow: row wrap;
+}
+.flex-center{
+    @include dflex-centered();
+}
+.no-scroll{
+    overflow-y:hidden;
+}
+.d-none{
+    display:none !important;
+}
+
+.bold{
+    font-weight: bold;
+}
+.thin{
+    font-weight: 300;
+}
+.clearfix{
+    clear: both;
+}
+.text-center{
+    text-align: center;
+}
+.right{
+    float:right;
+}
+.left{
+    float:left;
+}
+.row{
+    @include dflex();
+}
+.row *{
+    flex:auto;
+    -webkit-flex:auto;
+}
+
+main {
+    > section{
+        margin-bottom: 120px !important;
+    }
+}
+
+section{
+    h2{
+        margin-bottom:10px;
+    }
+}
+
+.folio{
+    @include centeredBox(90%,900px);
+    font-family: $handWritingFont;
+    position: relative;
+    background-color: white;
+    padding: 100px 0px;
+    margin-top: 100px;
+    background: url("../img/paper.png");
+
+    ::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -25px;
+        background: white;
+        border-left: solid 37px transparent;
+        border-right: solid 40px transparent;
+        border-top: solid 39px white;
+        @include transform(rotate(134deg));
+    }
+
+    header{
+        display: grid;
+        grid-template-columns: auto 35%;
+
+        h2{
+            @include dflex();
+            justify-content: flex-end;
+            flex-direction: column;
+            padding-left: 20px;
+            
+            strong{
+                font-size: 25px;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    section{
+        padding:100px 0 40px 20px;
+    }
+
+    h3{
+        border-bottom: 1px solid $grayBlack;
+    }
+
+    .grid{
+        grid-template-columns:20% auto;
+        grid-column-gap: 10px;
+        margin:20px 0;
+    }
+
+    .descripcion{
+        color:gray;
+    }
+}
+
+/*HEADER*/
+#menuCont{
+    background-color:$mainBlue;
+    position: fixed;
+    width: 100%;
+    top:0;
+    left:0;
+    padding:5px;
+    z-index: 10;
+    height: 65px;
+}
+.logo{
+
+    span{
+        float:left;
+        font-size: 19px;
+        margin: 14px 10px 10px 30px;
+        color:white;
+        font-weight: bold;
+    }
+}
+
+/*********************
+BOTON MENU
+*********************/
+#menuTrigger{
+    display:none;
+
+    :checked ~ ul{
+        transform:translatex(0);
+    }
+
+    :checked + #menuBut{
+        background-image:url("../img/close-w.png");
+    }
+}
+#menuBut{
+    float: right;
+    margin: 10px 20px 10px 10px;
+    background-image:url("../img/boton.png");
+    background-size: 100% 100%;
+    width: 38px;
+    height: 32px;
+
+    :hover{
+        cursor: pointer;
+    }
+}
+
+#menuCont { 
+    
+    ul{
+        position: absolute;
+        transform:translatex(100%);
+        transition:transform 0.5s ease-in-out;
+        background-color: #3e3e3e;
+        top:65px;
+        right:0;
+        padding:15px;
+        height: 100vh;
+
+        li{
+            padding:10px 5px;
+            
+            :hover{
+                cursor: pointer;
+                transform: scale(1.06);
+            }
+
+            a{
+                color:white;
+                font-size: 18px;               
+            }
+        }
+    }
+
+}
+/***************************/
+
+/*HOME*/
+#inicio{
+    width: 100%;
+    height: 100vh;
+    background-image: $homeImg;
+    background-size: cover;
+    background-attachment: fixed;
+
+    div{
+        background-color:$mainBlueTrans;
+        padding:40px;
+        max-width: $maxWidthModal;
+    }
+
+    h1{
+        color:white;
+        text-transform: uppercase;
+        font-size: 26px;
+
+        span{
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+        }
+    
+    }
+
+}
+
+.avatar {
+    img{
+        max-width: 190px;
+        float: right;
+    }
+}
+
+@mixin esquina($top, $left, $bg, $borderL, $borderR, $borderT, $deg){
+    position: absolute;
+    top: $top;
+    left: $left;
+    background: $bg;
+    border-left: solid $borderL;
+    border-right: solid $borderR;
+    border-top: solid $borderT;
+    @include transform(rotate($deg))    
+}
+
+@mixin sombra($top, $left, $width){
+    position: absolute;
+    top: $top;
+    left: $left;
+    width: $width;
+    height: 0;
+    border-top: 1px solid transparent;
+    box-shadow: 1px 1px 3px #e1e1e1;
+}
+
+.esquina-doblada {
+    $colorSombra: #d2d1d1;
+    .fondo{
+        @include esquina(-4px,
+                            -25px,
+                            white,
+                            37px transparent,
+                            40px transparent,
+                            39px white,
+                            134deg);
+    }
+
+    .doblez{
+        @include esquina(-4px,
+                            -25px,
+                            url("../img/paper.png"),
+                            37px transparent,
+                            40px transparent,
+                            39px $colorSombra,
+                            314deg);
+    }
+
+    .sombra-abajo{
+        @include sombra(54px,0,51px);
+    }
+
+    .sombra-derecha{
+        @include sombra(28px,27px,52px);
+        @include transform(rotate(90deg));
+    }
+}
+
+.aptitudes-wrap{
+    max-width:385px;
+    margin-top:40px;
+}
+
+.aptitud{
+    margin-bottom:15px;
+}
+
+/*FORMULARIO*/
+#formulario{
+    padding: 60px 20px;
+
+    header{
+
+        button{
+            margin:auto;
+            margin-top:30px;
+            display: block;
+            background-color: $mainBlue;
+            border: 0;
+            color: white;
+            padding:15px;
+
+            :hover{
+                cursor: pointer;
+                @include transform(scale(1.06));
+            }
+        }
+    }
+    
+    #form{
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        background-color: white;
+        position: fixed;
+        top:0;
+        left: 0;
+        z-index: 12;
+        padding-bottom: 100px;
+    
+        button:active{
+            background-color: $mainBlueDarker;
+        }
+
+        form{
+            margin:auto;
+            max-width: 600px;
+            margin-bottom:60px;
+
+            section{
+                margin-top:30px;
+            }
+            
+            .form-group{
+                margin:10px;
+            }
+
+            input, textarea{
+                width:100%;
+                border: 0;
+                background-color: #ececec;
+                padding: 10px;
+
+                :focus {
+                    background-color:bisque;
+                }
+            }
+
+            label{
+                display: block;
+            }
+
+            .entry {
+
+                border-bottom: 1px solid;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+            }
+
+            button{
+                background-color:#303f7e;
+                border:none;
+                color:white;
+                padding:10px;
+                
+
+                [type="submit"]{
+                    display: block;
+                    margin-left: auto;
+                    margin-top: 30px;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                }
+            }
+
+        }
+    }
+
+    .closeButton{
+        float: right;
+        margin: 20px 20px 0 0;
+        background:none;
+        border:none;
+        width: 32px;
+    }
+}

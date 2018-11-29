@@ -1,0 +1,36 @@
+/*ANIMATIONS*/
+.coming{
+    position: relative;
+    left: -100vw;
+    transition: left 1s ease-in ;
+}
+.comeOn{
+    left:0;
+}
+.fadingFast{
+    opacity:0;
+    transition: opacity 1s linear 0.2s;
+}
+
+.fading{
+    opacity:0;
+    transition: opacity 0.5s linear 0.8s;
+}
+.fadeOn{
+    opacity: 1;
+}
+.bar{
+    width:0;
+    background-color:#434343;
+    height: 40px;
+}
+
+.crecerOn{
+    animation: crecer 4s ease-out 0.7s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes crecer{
+    0%{width:0%;}
+    100%{width:100%;}
+}
